@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shared Wishlist App</title>
+  
 </head>
 <body style="font-family: sans-serif; line-height: 1.6; padding: 2rem; max-width: 800px; margin: auto; background-color: #f9f9f9;">
 
