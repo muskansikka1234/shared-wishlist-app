@@ -92,5 +92,7 @@ Product filtering/search
 
 Refresh tokens & auto-logout on expiry
 
+---
+
 📽️ Demo Video
 🎥 Watch here: Loom Demo
