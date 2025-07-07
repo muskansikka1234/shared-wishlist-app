@@ -4,10 +4,13 @@ import UserModel from '../Models/UserModel.js';
 import transporter from '../Config/nodeMailer.js';
 import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE } from '../Config/EmailTemplates.js';
 
-const isRender = req.hostname?.includes('.onrender.com');
+const isRenderRequest = (req) => req.hostname?.includes('.onrender.com');
+
 
 export const register = async (req, res)=> {
     const {name, email, password} = req.body;
+    const isRender = isRenderRequest(req);
+
 
     if(!name || !email || !password) {
         return res.json({success : false, message : "Missing details"})
@@ -49,6 +52,8 @@ export const register = async (req, res)=> {
 
 export const login = async(req, res)=> {
     const {email, password} = req.body;
+    const isRender = isRenderRequest(req);
+
 
     if(!email || !password) {
         return res.json({success : false, message : "Email and password are required"})
