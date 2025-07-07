@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// ✅ This is the fix — add this line:
 export const AppContent = createContext();
 
 export const AppContextProvider = (props) => {
@@ -12,35 +11,38 @@ export const AppContextProvider = (props) => {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [userData, setUserData] = useState(null);
 
- const getAuthState = async () => {
-  try {
-    const { data } = await axios.get(backendUrl + "/api/auth/is-auth");
-    console.log("is-auth response:", data);
-    if (data.success) {
-      setIsLoggedin(true);
-      getUserData();  // async — doesn’t wait here
+  const getAuthState = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/auth/is-auth`, {
+        withCredentials: true, // ✅ Explicit
+      });
+      console.log("is-auth response:", data);
+      if (data.success) {
+        setIsLoggedin(true);
+        getUserData(); // async
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error.message);
+      toast.error("Not authenticated");
     }
-  } catch (error) {
-    console.error("Auth check failed:", error.message);
-    toast.error(error.message);
-  }
-};
+  };
 
-const getUserData = async () => {
-  try {
-    const { data } = await axios.get(backendUrl + "/api/user/data");
-    console.log("user/data response:", data);
-    if (data.success) {
-      setUserData(data.userData);
-    } else {
-      toast.error(data.message);
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/user/data`, {
+        withCredentials: true, // ✅ Explicit
+      });
+      console.log("user/data response:", data);
+      if (data.success) {
+        setUserData(data.userData);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("User data fetch failed:", error.message);
+      toast.error("Failed to fetch user data");
     }
-  } catch (error) {
-    console.error("User data fetch failed:", error.message);
-    toast.error(error.message);
-  }
-};
-
+  };
 
   useEffect(() => {
     getAuthState();
