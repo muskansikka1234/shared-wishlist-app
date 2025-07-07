@@ -16,7 +16,7 @@ connectDB();
 // ✅ Allow CORS from local + deployed frontend
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://wishlist-frontend-w6pf.onrender.com'
+  'https://shared-wishlist-app-frontend.onrender.com'
 ];
 
 // Middleware
